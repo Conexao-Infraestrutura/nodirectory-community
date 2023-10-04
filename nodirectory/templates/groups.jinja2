@@ -1,0 +1,106 @@
+{% extends "front.jinja2" %}
+
+{% block content %}
+  <div class="content">
+    <div class="container-fluid col-lg-10 col-md-10 col-sm-10 col-xs-10">
+      <div class="row">
+        <button
+          type="button"
+          id="page_group_add_btn"
+          class="btn btn-success btn-sm w-auto" 
+          onclick="addGroupInfo()"
+          data-bs-toggle="modal" 
+          data-bs-target="#modal_form_add">Add</button>
+      </div>
+      <br>
+      <div class="row">
+        <!-- Table with present groups -->
+        <table id='table_groups' class="table table-bordered w-auto"></table>
+        <!-- Box with groups information -->
+        <table id='table_groupinfo' class="table table-bordered w-auto"></table>
+      </div>
+    </div>
+    <!-- Modal confirm -->
+    <div class="modal fade" id="modal_confirm" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal_confirm_title"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="modal_confirm_text"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Back</button>
+            <button id="modal_confirm_btnok"
+              type="button" 
+              class="btn btn-danger btn-sm" 
+              data-bs-dismiss="modal" 
+              data-bs-toggle="modal" 
+              data-bs-target="#modal_notify">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal notify -->
+    <div class="modal fade" id="modal_notify" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal_notify_title"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="modal_notify_text"></p>
+          </div>
+          <div class="modal-footer">
+            <button id="modal_aviso_botao_ok"
+              type="button"
+              class="btn btn-secondary btn-sm"
+              data-bs-dismiss="modal"
+              onclick="javascript:window.location.reload()"
+              >Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal add group -->
+    <div class="modal fade" id="modal_form_add" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal_form_add_title"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="container-fluid">
+            <form>
+              <div class="mb-3">
+                <label for="form_add_input_group_name" class="form-label"></label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  id="form_add_input_group_name"
+                  aria-describedby="groupName">
+                <div id="form_add_input_group_name_label" class="form-text">Insert the group name</div>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="form_add_check_group_smb" checked>
+                <label class="form-check-label" for="form_add_check_group_smb">Select for Windows group</label>
+              </div>
+              <div class="mb-3">
+                <button id="modal_form_add_btnok"
+                  type="button"
+                  class="btn btn-success"
+                  data-bs-dismiss="modal" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#modal_notify">Create</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

@@ -1,0 +1,136 @@
+{% extends "front.jinja2" %}
+
+{% block content %}
+  <div class="content">
+    <!-- Table with current service state -->
+    <div class="container-fluid col-lg-10 col-md-10 col-sm-10 col-xs-10">
+      <div class="row">
+        <button
+          type="button"
+          id="page_machine_add_btn"
+          class="btn btn-success btn-sm w-auto" 
+          onclick="addMachineInfo()"
+          data-bs-toggle="modal" 
+          data-bs-target="#modal_form_add_machine">Add</button>
+      </div>
+      <br>
+      <div class="row">
+        <!-- Table with present machines -->
+        <table id='table_machines' class="table table-bordered w-auto"></table>
+      </div>
+    </div>
+    <!-- Modal confirm -->
+    <div class="modal fade" id="modal_confirm" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal_confirm_title"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="modal_confirm_text"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Back</button>
+            <button id="modal_confirm_btnok"
+              type="button" 
+              class="btn btn-danger btn-sm" 
+              data-bs-dismiss="modal" 
+              data-bs-toggle="modal" 
+              data-bs-target="#modal_notify">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal notify -->
+    <div class="modal fade" id="modal_notify" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal_notify_title"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="modal_notify_text"></p>
+          </div>
+          <div class="modal-footer">
+            <button id="modal_aviso_botao_ok"
+              type="button"
+              class="btn btn-secondary btn-sm"
+              data-bs-dismiss="modal"
+              onclick="javascript:window.location.reload()"
+              >Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal add Machine -->
+    <div class="modal fade" id="modal_form_add_machine" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal_form_add_machine_title"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="container-fluid">
+            <form>
+              <br />
+
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Ingress Machine</label>
+                <input 
+                  id="form_add_input_machine_credentials" 
+                  type="text" 
+                  class="form-control" 
+                  id="exampleFormControlInput1" 
+                  placeholder="myuser@mymachine.foo.bar"
+                >
+              </div>
+            
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Password or SSH-Key</label>
+                <textarea
+                  id="form_add_input_password_credentials"
+                  class="form-control" 
+                  id="exampleFormControlTextarea1" 
+                  rows="3"
+                  enctype="text/plain"></textarea>
+              </div>
+
+              <div class="mb-3 form-check">
+                <input 
+                  id="form_add_select_pass_or_key"
+                  type="checkbox" 
+                  class="form-check-input" 
+                  unchecked
+                >
+                <label class="form-check-label" for="form_add_check_user_smb">SSH-Key instead Password</label>
+              </div>
+              
+              <div class="mb-3">
+                <label for="exampleFormControlInput2" class="form-label">Sudo Password</label>
+                <input 
+                  id="form_add_input_sudo_password_credentials" 
+                  type="password" 
+                  class="form-control" 
+                  id="exampleFormControlInput2" 
+                  placeholder="password"
+                  disabled
+                >
+              </div>
+
+              <div class="mb-3">
+                <button id="modal_form_add_machine_btnok"
+                  type="button"
+                  class="btn btn-success"
+                  data-bs-dismiss="modal" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#modal_notify">Create</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

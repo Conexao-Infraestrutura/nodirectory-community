@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ project }}">
+    <meta name="author" content="{{ autor }}">
+    <!-- <link rel="shortcut icon" href="{{request.static_url('nodirectory:static/pyramid-16x16.png')}}"> -->
+
+    <title>{{ title }}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    
+    <!-- Custom styles for this scaffold -->
+    <!-- <link href="{{request.static_url('nodirectory:static/groups.css')}}" rel="stylesheet">
+    <link href="{{request.static_url('nodirectory:static/users.css')}}" rel="stylesheet">
+    <link href="{{request.static_url('nodirectory:static/services.css')}}" rel="stylesheet"> -->
+
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img 
+            src="{{request.static_url('nodirectory:static/nodirectory.png')}}" 
+            alt="Logo" 
+            width="40" 
+            height="40" 
+            class="d-inline-block align-text-bottom"
+          >
+          NoDirectory
+        </a>    
+        <button 
+          class="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarNav" 
+          aria-controls="navbarNav" 
+          aria-expanded="false" 
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/service">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/machine">Machine</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user">Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/group">Groups</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a  id="user_menu" class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <br />
+    <br />
+
+    {% block content %}
+      <p>No content</p>
+    {% endblock content %}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="{{request.static_url('nodirectory:static/groups.js')}}"></script>
+    <script src="{{request.static_url('nodirectory:static/users.js')}}"></script>
+    <script src="{{request.static_url('nodirectory:static/services.js')}}"></script>
+    <script src="{{request.static_url('nodirectory:static/front.js')}}"></script>
+    <script src="{{request.static_url('nodirectory:static/machine.js')}}"></script>
+  </body>
+</html>

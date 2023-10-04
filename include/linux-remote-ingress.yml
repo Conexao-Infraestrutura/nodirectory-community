@@ -1,0 +1,74 @@
+---
+- hosts: all
+  become: true
+  gather_facts: false
+  vars:
+    ndserver_domain: "{{ lookup('env', 'ND_MASTER_DOMAIN') }}"
+    master_server: ''
+  tasks:
+
+    - ansible.builtin.wait_for_connection:
+
+    - ansible.builtin.dnf:
+        name: 
+          - openldap-clients
+          - sssd
+          - sssd-ldap
+          - oddjob-mkhomedir
+          - openssl-perl
+          - authselect
+    
+    - ansible.builtin.blockinfile:
+        path: /etc/sssd/sssd.conf
+        owner: root
+        group: root
+        mode: '0600'
+        create: true
+        marker: "# {mark} ANSIBLE MANAGED BLOCK ndserver"
+        block: |
+          [sssd]
+          config_file_version = 2
+          services = nss, pam
+          domains = default
+
+          [nss]
+          homedir_substring = /home
+          
+          [pam]
+          
+          [domain/default]
+          id_provider = ldap
+          auth_provider = ldap
+          chpass_provider = ldap
+          sudo_provider = ldap
+          ldap_uri = ldap://{{ master_server }}:389
+          ldap_search_base = {{ ndserver_domain }}
+          cache_credentials = false
+          ldap_id_use_start_tls = false
+          ldap_tls_reqcert = never
+          ldap_auth_disable_tls_never_use_in_production = true
+
+    - ansible.builtin.shell: |
+        authselect select sssd with-mkhomedir --force
+      args:
+        executable: /bin/bash
+
+    - ansible.builtin.systemd:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop:
+        - sssd
+        - oddjobd
+
+    - ansible.builtin.blockinfile:
+        path: /etc/openldap/ldap.conf
+        owner: root
+        group: root
+        mode: '0600'
+        create: true
+        marker: "# {mark} ANSIBLE MANAGED BLOCK ndserver"
+        block: |
+          BASE {{ ndserver_domain }}
+          URI ldap://{{ master_server }}:389
+          

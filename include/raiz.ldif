@@ -1,0 +1,4 @@
+dn: ND_MASTER_DOMAIN
+dc: WORKGROUP
+objectClass: top
+objectClass: domain

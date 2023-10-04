@@ -1,0 +1,18 @@
+##
+## -> olcRootPW: {SSHA}ND_MASTER_PASSWORD
+## is inserted by a echo !!
+##
+
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+replace: olcSuffix
+olcSuffix: ND_MASTER_DOMAIN
+
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+replace: olcRootDN
+olcRootDN: cn=Manager,ND_MASTER_DOMAIN
+
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+replace: olcRootPW
