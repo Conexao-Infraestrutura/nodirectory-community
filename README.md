@@ -1,4 +1,5 @@
 # NoDirectory community edition
+
 A simple Openldap User/Group Management for Linux and Samba.
 
 NoDirectory is conceived to be a "ridiculously simple implementation" to substitute
@@ -26,12 +27,47 @@ In this case check [Fedora and SambaTool](https://fedoramagazine.org/samba-as-ad
 
 **Them YES !! NoDirectory is what you looking for** !!
 
-With the time we intended to rewrite the SmbLdap-Tools in Python and extend his capabilities, but remember!
-We aren’t intended to extend all possible capabilities which OpenLdap have into NoDirectory.
+With the time we intended to rewrite the SmbLdap-Tools in Python and extend his capabilities.
+But remember! We aren’t intended to extend all possible capabilities which OpenLdap have into NoDirectory.
 
 So, stay tuned for more.
 
 ## How use it ?
+
+First off all:
+
+This was tested in [Centos Stream 9](https://mirror.stream.centos.org/9-stream/BaseOS/x86_64/iso), with Firewalld and Selinux active.
+
+Install [Docker](https://docs.docker.com/engine/install/centos/) as usually.
+
+Then build your environment file:
+```
+cat << EOF > /usr/local/etc/ndserver_environment
+ND_MASTER_PASSWORD='ndserver'
+ND_MASTER_DOMAIN='dc=prototype,dc=foo,dc=bar'
+ND_MASTER_NAME='ndserver'
+EOF
+```
+
+Add the rules to Firewalld:
+```
+firewall-cmd --zone public --add-port=6543/tcp --permanent \
+firewall-cmd --zone public --add-service=samba --permanent \
+firewall-cmd --reload
+```
+
+Run your NDserver:
+```
+docker run -dit \
+  --privileged \
+  --net=host \
+  -v /usr/local/etc/ndserver_environment:/etc/ndserver_env \
+  felipediefenbach/nodirectory-community:latest
+```
+
+When you done, you should be able to access the web interface by your web browser at: http://some_ip_address:6543
+
+## Addicional Information:
 
 There are 3 main variables:
 
@@ -41,20 +77,11 @@ There are 3 main variables:
 
 **ND_MASTER_NAME='ndserver'** => Which is de DNS name which will compose the FQDN for the PRIMARY server. (***Need a separete DNS SERVER***, check Bind, etc...)
 
-The other parameters are ports, source networks and protocols, followed by the image name. Just do that as follow in a machine with docker installed, and you will be fine :)
-
-After do this go to, http://your_ip_address:6543/
+Addicionally (and normally) you cloud be do this in a router-box, which cloud be include the masquerade setup to Firewalld, like that:
 
 ```
-docker run -dit \
-    -p 0.0.0.0:6543:6543/tcp \
-    -p 0.0.0.0:389:389/tcp \
-    -p 0.0.0.0:137:137/udp \
-    -p 0.0.0.0:138:138/udp \
-    -p 0.0.0.0:139:139/tcp \
-    -p 0.0.0.0:445:445/tcp \
-    -e ND_MASTER_PASSWORD='ndserver' \
-    -e ND_MASTER_DOMAIN='dc=prototype,dc=foo,dc=bar' \
-    -e ND_MASTER_NAME='ndserver' \
-    felipediefenbach/nodirectory-community
+firewall-cmd --zone public --add-interface=enpXsX --permanent \
+firewall-cmd --zone public --add-masquerade --permanent \
+firewall-cmd --reload
 ```
+

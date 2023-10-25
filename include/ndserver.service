@@ -1,0 +1,9 @@
+[Unit]
+Description=No Directory Server
+
+[Service]
+EnvironmentFile=/etc/ndserver_env
+ExecStart=/usr/bin/bash /srv/include/ndserver.sh
+
+[Install]
+WantedBy=multi-user.target
