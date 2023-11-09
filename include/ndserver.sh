@@ -43,11 +43,12 @@ systemctl enable slapd --now
     smbpasswd -w "$(echo -n "${ND_MASTER_PASSWORD}")"
     SAMBASID=$(net getlocalsid | cut -d ':' -f 2 | tr -d '[:blank:]')
     mkdir -m 2770 /data
-    mkdir -m 2770 /data/public /data/netlogon /data/profiles
-    chgrp 513 -R /data
+    mkdir -m 2770 /data/public /data/netlogon /data/profiles /data/home
     unzip /srv/include/regeditlogon.zip
-    /bin/mv /srv/logon.bat /data/netlogon/
-    /bin/mv /srv/samba.reg /data/public/
+    /bin/mv logon.bat /data/netlogon/logon.bat
+    /bin/mv samba.reg /data/public/samba.reg
+    /bin/chmod 750 /data/netlogon/logon.bat
+    chgrp 513 -R /data
 
     # - Configre smbldap-tools
     /bin/mv /etc/smbldap-tools/smbldap.conf /etc/smbldap-tools/smbldap.conf.org

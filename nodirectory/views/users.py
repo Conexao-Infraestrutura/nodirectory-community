@@ -171,10 +171,19 @@ def useradd(request):
 
     if input_smbuser.strip() == 'checked':
         
+        set_user = str(input_username).strip()
+        
+        cast_cmd = f'/usr/sbin/smbldap-useradd \
+            -g "{primary_group}" \
+            -G "{compplementary_group}" \
+            -m -d /data/home/{set_user} \
+            -a {set_user}'
+        
         users_add = subprocess.run(
-            ['/usr/sbin/smbldap-useradd', '-g', primary_group, '-G', compplementary_group, '-a', input_username.strip()],
+            [cast_cmd],
             capture_output=True,
             text=True,
+            shell=True
         )
         
         if users_add.returncode == 0:
@@ -182,14 +191,23 @@ def useradd(request):
             message = users_add.stdout
         else:
             result = 'err'
-            message = users_add.stderr
+            message = users_add.stdout
 
     if input_smbuser.strip() == 'unchecked':
 
+        set_user = str(input_username).strip()
+        
+        cast_cmd = f'/usr/sbin/smbldap-useradd \
+            -g "{primary_group}" \
+            -G "{compplementary_group}" \
+            -m -d /data/home/{set_user} \
+            {set_user}'
+        
         users_add = subprocess.run(
-            ['/usr/sbin/smbldap-useradd', '-g', primary_group, '-G', compplementary_group, input_username.strip()],
+            [cast_cmd],
             capture_output=True,
             text=True,
+            shell=True
         )
 
         if users_add.returncode == 0:

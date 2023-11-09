@@ -121,6 +121,7 @@ def machineadd(request):
             ansible_target = str(auth_cred.split('@')[1]).strip()
 
             ansible_cmd = f'ansible-playbook -i {ansible_target}, \
+                --ssh-common-args="-o StrictHostKeyChecking=no" \
                 -e "ansible_user={ansible_user}" \
                 -e "ansible_password={ansible_pass}" \
                 -e "ansible_sudo_pass={ansible_sudo}" \
@@ -151,6 +152,7 @@ def machineadd(request):
             ansible_target = str(auth_cred.split('@')[1]).strip()
 
             ansible_cmd = f'ansible-playbook -i {ansible_target}, \
+                --ssh-common-args="-o StrictHostKeyChecking=no" \
                 -e "ansible_user={ansible_user}" \
                 -e "ansible_ssh_private_key_file={sshkey_filename}" \
                 -e "ansible_sudo_pass={ansible_sudo}" \
