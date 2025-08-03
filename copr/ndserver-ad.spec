@@ -27,8 +27,6 @@ A Centos Stream 9 Compile of NDServer-AD
     --with-quotas \
     --with-winbind \
     --enable-fhs \
-    --disable-cluster \
-    --without-ceph \
     --prefix=/srv/%{name}/usr \
     --sysconfdir=/srv/%{name}/etc \
     --localstatedir=/srv/%{name}/var \
