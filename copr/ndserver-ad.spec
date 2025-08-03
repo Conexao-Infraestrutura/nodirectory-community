@@ -1,6 +1,6 @@
 Name:           ndserver-ad
 Version:        0.1.4.22.3
-Release:        1%{?dist}
+Release:        0.%(bash -c 'date +%s')%{?dist}
 Summary:        NDServer-AD Official Release
 Source0:        %{name}-%{version}.tar.gz
 License:        GPLv3+
