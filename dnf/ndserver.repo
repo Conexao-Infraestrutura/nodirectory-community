@@ -1,0 +1,5 @@
+[ndserver-ad]
+name = ndserver-ad
+baseurl = https://raw.githubusercontent.com/conexao-infraestrutura/nodirectory-community/refs/heads/main/dnf
+enabled = 1
+gpgcheck = 0
