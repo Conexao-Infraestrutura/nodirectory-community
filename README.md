@@ -38,6 +38,13 @@ First off all:
 
 This was tested in [Centos Stream 9](https://mirror.stream.centos.org/9-stream/BaseOS/x86_64/iso), with Firewalld and Selinux active.
 
+Samba Custom compile by DNF
+
+```
+curl -L https://raw.githubusercontent.com/conexao-infraestrutura/nodirectory-community/refs/heads/main/dnf/ndserver.repo -o /etc/yum.repos.d/ndserver.repo
+dnf -y install epel-release && dnf -y install ndserver-ad
+```
+
 Install [Docker](https://docs.docker.com/engine/install/centos/) as usually.
 
 Then build your environment file:
