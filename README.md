@@ -38,7 +38,17 @@ First off all:
 
 This was tested in [Centos Stream 9](https://mirror.stream.centos.org/9-stream/BaseOS/x86_64/iso), with Firewalld and Selinux active.
 
-Samba Custom compile by DNF
+Custom compile by Fedora COPR
+
+[![Copr build status](https://copr.fedorainfracloud.org/coprs/conexinfra/nodirectory-community/package/ndserver-ad/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/conexinfra/nodirectory-community/package/ndserver-ad/)
+
+```
+dnf -y install epel-release &&\
+dnf copr enable conexinfra/nodirectory-community centos-stream+epel-next-9-x86_64 &&\
+dnf -y install ndserver-ad
+```
+
+Custom compile by DNF
 
 ```
 curl -L https://raw.githubusercontent.com/conexao-infraestrutura/nodirectory-community/refs/heads/main/dnf/ndserver.repo -o /etc/yum.repos.d/ndserver.repo
